@@ -28,13 +28,12 @@
           throw err;
         asd = data;
         
-        var minDate = data.data[0][0];
-        var maxDate = data.data[data.data.length-1][0];
+        var minDate = new Date(data.data[0][0]);
+        var maxDate = new Date(data.data[data.data.length-1][0]);
 
         
         xScale.domain([minDate,maxDate]);
-        yScale.domain([d3.min(data, function(d) { 
-          console.log(d.data[1]);return d.data[1]; }), d3.max(data, function(d) { return d.data[1]; })]);
+        yScale.domain([d3.min(data, function(d) {return d.data[1]; }), d3.max(data, function(d) { return d.data[1]; })]);
         g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale));
         g.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
