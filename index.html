@@ -33,7 +33,8 @@
 
         
         xScale.domain([minDate,maxDate]);
-        yScale.domain([d3.min(data, function(d) { return d.data[1]; }), d3.max(data, function(d) { return d.data[1]; })]);
+        yScale.domain([d3.min(data, function(d) { 
+          console.log(d.data[1]);return d.data[1]; }), d3.max(data, function(d) { return d.data[1]; })]);
         g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale));
         g.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
