@@ -12,7 +12,7 @@
   <body>
     <svg width="600" height="500"></svg>
     <script>
-      
+       var asd ;
       
       var svg = d3.select("svg");
       var margin = 200;
@@ -26,16 +26,25 @@
       d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json",function(err,data){
         if(err)
           throw err;
+        asd = data;
         
-        var minDate = new Date(data.data[0][0]);
-        var maxDate = new Date(data.data[data.length-1][0]);
+        var minDate = data.data[0][0];
+        var maxDate = data.data[data.data.length-1][0];
 
         
         xScale.domain([minDate,maxDate]);
         yScale.domain([d3.min(data, function(d) { return d.data[1]; }), d3.max(data, function(d) { return d.data[1]; })]);
-        
-        g.append("g").call(d3.axisLeft(yScale).tickFormat(function(d){return "$" + d;}));
-        g.append("g").call(d3.axisBottom(xScale));
+        g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale));
+        g.append("g")
+         .call(d3.axisLeft(yScale).tickFormat(function(d){
+             return "$" + d;
+         }).ticks(10))
+         .append("text")
+         .attr("y", 6)
+         .attr("dy", "0.71em")
+         .attr("text-anchor", "end")
+         .text("value");
+       
       
       
       });
