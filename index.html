@@ -30,14 +30,7 @@
          g.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
              return "$" + d;
-         }).ticks(10))
-         .append("text")
-         .attr("y", 6)
-         .attr("dy", "0.71em")
-         .attr("text-anchor", "end")
-         .text("value");
-      
-      
+         });
       
       
       });
