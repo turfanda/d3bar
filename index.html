@@ -6,13 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.2/d3.js"></script>
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <h1>Hi there!</h1>
-    <p>
-      I'm your cool new webpage. Made with 
-      <a href="https://www.glitch.com">Glitch</a>
-    </p>
+    <svg width="600" height="500"></svg>
+    <script>
+      var svg = d3.select("svg");
+      var margin = 200;
+      var width = svg.attr("width") - margin;
+      var height = svg.attr("height") - margin;
+    
+      var xScale = d3.scaleLinear().range ([0, width]);
+      var yScale = d3.scaleLinear().range ([height, 0]);
+      
+      var g = svg.append("g").attr("transform", "translate(" + 100 + "," + 100 + ")");
+      d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json",function(err,data){
+        if(err)
+          throw err;
+        console.log(data.data);
+      
+      
+      
+      
+      });
+
+
+    </script>
   </body>
 </html>
