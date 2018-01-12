@@ -47,7 +47,14 @@
          .attr("text-anchor", "end")
          .text("value");
        
-      
+      g.selectAll(".bar")
+         .data(data.data)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .attr("x", function(d) { return xScale(d[0]); })
+         .attr("y", function(d) { return yScale(d[1]); })
+         .attr("width", xScale.bandwidth())
+         .attr("height", function(d) { return height - yScale(d[1]); });
       
       });
 
