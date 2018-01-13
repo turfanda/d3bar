@@ -64,7 +64,7 @@ var svg = d3.select("svg");
         var month = currentDateTime.getMonth();
         var dollars = d[1];
         div.transition()
-          .duration(100)
+          .duration(50)
           .style("opacity", 0.9);
         div.html("<span class='insideInfo'>" + moneyFormat(dollars) + "&nbsp;Billion </span><br><span class='insideInfo'>" + year+ "-"+currentDateTime.toString().slice(3, 7)+"</span>")
           .style("left", (d3.event.pageX + 5) + "px")
