@@ -1,97 +1,49 @@
-$('document').ready(function() {
+var svg = d3.select("svg");
+      var margin = 100;
+      var width = svg.attr("width") - margin;
+      var height = svg.attr("height") - margin;
+    
+      var xScale = d3.scaleTime().range ([0, width]);
+      var yScale = d3.scaleLinear().range ([height, 0]);
+      
+      var g = svg.append("g").attr("transform", "translate(" + 50+"," + 50+ ")");
+      d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json",function(err,data){
+        if(err)
+          throw err;
+        asd = data;
+        
+        var minDate = new Date(data.data[0][0]);
+        var maxDate = new Date(data.data[data.data.length-1][0]);
 
-  var url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json';
-
-  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-  var formatCurrency = d3.format("$,.2f");
-
-  $.getJSON(url).success(function(jsonData) {
-    var data = jsonData.data;
-
-    console.log(data);
-    console.log(JSON.stringify(jsonData));
-
-    d3.select(".notes")
-      .append("text")
-      .text(jsonData.description);
-
-    var margin = {
-        top: 5,
-        right: 10,
-        bottom: 30,
-        left: 75
-      },
-      width = 1000 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-
-    var barWidth = Math.ceil(width / data.length);
-
-    minDate = new Date(data[0][0]);
-    maxDate = new Date(data[274][0]);
-
-    var x = d3.time.scale()
-      .domain([minDate, maxDate])
-      .range([0, width]);
-
-    var y = d3.scale.linear()
-      .range([height, 0])
-      .domain([0, d3.max(data, function(d) {
-        return d[1];
-      })]);
-
-    var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
-      .ticks(d3.time.years, 5);
-
-    var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
-      .ticks(10, "");
-
-    var infobox = d3.select(".infobox");
-
-    var div = d3.select(".card").append("div")
+          var barWidth = Math.ceil(width / data.data.length);
+        
+        xScale.domain([minDate,maxDate]);
+        yScale.domain([ 0, d3.max(data.data, function(d) { return d[1]; })]);
+        
+        g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale));
+        
+        g.append("g")
+         .call(d3.axisLeft(yScale).tickFormat(function(d){
+             return "$" + d;
+         }).ticks(10))
+         .append("text")
+         .attr("y", 6)
+         .attr("dy", "0.71em")
+         .attr("text-anchor", "end")
+         .text("value");
+            var div = d3.select("body").append("div")
       .attr("class", "tooltip")
-      .style("opacity", 0);
-
-    var chart = d3.select(".chart")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    chart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-    chart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.8em")
-      .style("text-anchor", "end")
-      .text("Gross Domestic Product, USA");
-
-    chart.selectAll(".bar")
-      .data(data)
-      .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) {
-        return x(new Date(d[0]));
-      })
-      .attr("y", function(d) {
-        return y(d[1]);
-      })
-      .attr("height", function(d) {
-        return height - y(d[1]);
-      })
-      .attr("width", barWidth)
-      .on("mouseover", function(d) {
+      .style("opacity", 0).style("position","absolute");
+       
+      g.selectAll(".bar")
+         .data(data.data)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .attr("x", function(d) { return xScale(new Date(d[0])); })
+         .attr("y", function(d) { return yScale(d[1]); })
+         .attr("width", barWidth)
+         .attr("height", function(d) { return height - yScale(d[1]); })
+              .on("mouseover", function(d) {
         var rect = d3.select(this);
         rect.attr("class", "mouseover");
         var currentDateTime = new Date(d[0]);
@@ -101,7 +53,7 @@ $('document').ready(function() {
         div.transition()
           .duration(200)
           .style("opacity", 0.9);
-        div.html("<span class='amount'>" + formatCurrency(dollars) + "&nbsp;Billion </span><br><span class='year'>" + year + ' - ' + months[month] + "</span>")
+        div.html("<span class='amount'>" + dollars + "&nbsp;Billion </span><br><span class='year'>" + year + ' - ' + "</span>")
           .style("left", (d3.event.pageX + 5) + "px")
           .style("top", (d3.event.pageY - 50) + "px");
       })
@@ -112,7 +64,5 @@ $('document').ready(function() {
           .duration(500)
           .style("opacity", 0);
       });
+      });
 
-  });
-
-});
