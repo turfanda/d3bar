@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-
+          .bar{
+          fill:blue;
+          }
     </style>
     
     
@@ -37,9 +39,10 @@
         var minDate = new Date(data.data[0][0]);
         var maxDate = new Date(data.data[data.data.length-1][0]);
 
+          var barWidth = Math.ceil(width / data.data.length);
         
         xScale.domain([minDate,maxDate]);
-        yScale.domain([ d3.min(data.data, function(d) {return d[1]; }), d3.max(data.data, function(d) { return d[1]; })]);
+        yScale.domain([ 0, d3.max(data.data, function(d) { return d[1]; })]);
         
         g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale));
         
@@ -52,6 +55,9 @@
          .attr("dy", "0.71em")
          .attr("text-anchor", "end")
          .text("value");
+            var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
        
       g.selectAll(".bar")
          .data(data.data)
@@ -59,8 +65,29 @@
          .attr("class", "bar")
          .attr("x", function(d) { return xScale(new Date(d[0])); })
          .attr("y", function(d) { return yScale(d[1]); })
-         .attr("width", xScale.bandwidth())
-         .attr("height", function(d) { return height - yScale(d[1]); });
+         .attr("width", barWidth)
+         .attr("height", function(d) { return height - yScale(d[1]); })
+              .on("mouseover", function(d) {
+        var rect = d3.select(this);
+        rect.attr("class", "mouseover");
+        var currentDateTime = new Date(d[0]);
+        var year = currentDateTime.getFullYear();
+        var month = currentDateTime.getMonth();
+        var dollars = d[1];
+        div.transition()
+          .duration(200)
+          .style("opacity", 0.9);
+        div.html("<span class='amount'>" + dollars + "&nbsp;Billion </span><br><span class='year'>" + year + ' - ' + "</span>")
+          .style("left", (d3.event.pageX + 5) + "px")
+          .style("top", (d3.event.pageY - 50) + "px");
+      })
+      .on("mouseout", function() {
+        var rect = d3.select(this);
+        rect.attr("class", "mouseoff");
+        div.transition()
+          .duration(500)
+          .style("opacity", 0);
+      });
       });
 
 
