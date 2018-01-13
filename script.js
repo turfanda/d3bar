@@ -22,14 +22,14 @@ var svg = d3.select("svg");
         xScale.domain([minDate,maxDate]);
         yScale.domain([ 0, d3.max(data.data, function(d) { return d[1]; })]);
         
-            svg.append("text")
+        svg.append("text")
        .attr("transform", "translate(100,0)")
-       .attr("x", 50)
-       .attr("y", 150)
+       .attr("x", 100)
+       .attr("y", 50)
         .attr("class", "title")
        .text("GROSS DOMESTIC PRODUCT");
         
-        g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale));
+        g.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(xScale))
         
         g.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
