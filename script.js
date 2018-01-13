@@ -5,7 +5,6 @@ var svg = d3.select("svg");
       var width = svg.attr("width") - margin;
       var height = svg.attr("height") - margin;
       var moneyFormat = d3.format("$,.2f");
-      //var dateFormat = d3.time.format("%Y-%B");
     
       var xScale = d3.scaleTime().range ([0, width]);
       var yScale = d3.scaleLinear().range ([height, 0]);
@@ -49,14 +48,13 @@ var svg = d3.select("svg");
         var rect = d3.select(this);
         rect.attr("class", "mousein");
         var currentDateTime = new Date(d[0]);
-        console.log(currentDateTime);
         var year = currentDateTime.getFullYear();
         var month = currentDateTime.getMonth();
         var dollars = d[1];
         div.transition()
-          .duration(200)
+          .duration(100)
           .style("opacity", 0.9);
-        div.html("<span class='insideInfo'>" + moneyFormat(dollars) + "&nbsp;Billion </span><br><span class='insideInfo'>" + year+ "</span>")
+        div.html("<span class='insideInfo'>" + moneyFormat(dollars) + "&nbsp;Billion </span><br><span class='insideInfo'>" + year+ "-"+currentDateTime.toString().slice(3, 7)+"</span>")
           .style("left", (d3.event.pageX + 5) + "px")
           .style("top", (d3.event.pageY - 50) + "px");
       })
@@ -64,7 +62,7 @@ var svg = d3.select("svg");
         var rect = d3.select(this);
         rect.attr("class", "mouseout");
         div.transition()
-          .duration(500)
+          .duration(100)
           .style("opacity", 0);
       });
       });
