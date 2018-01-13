@@ -8,8 +8,13 @@ body {
   fill:blue;
 }
 .chartZone{
-background-color:white;
-  margin:auto;
+background-color:rgb(237, 239, 242);
+  margin: 40px auto;
+  padding: 0px;
+  width: 900px;
+  height: 640px;
+   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
+  border-radius:25px;
 }
 .title{
 fill:blue;
@@ -37,4 +42,10 @@ padding:10px;
 .title{
 font-size:24px;
 color:blue;
+}
+.def{
+  color:blue;
+  padding:10px;
+  width:700px;
+  marign:0 auto;
 }

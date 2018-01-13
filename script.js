@@ -51,7 +51,7 @@ var svg = d3.select("svg");
          .attr("y", function(d) { return yScale(d[1]); })
          .attr("width", barWidth)
          .attr("height", function(d) { return height - yScale(d[1]); })
-              .on("mouseover", function(d) {
+         .on("mouseover", function(d) {
         var rect = d3.select(this);
         rect.attr("class", "mousein");
         var currentDateTime = new Date(d[0]);
@@ -65,12 +65,14 @@ var svg = d3.select("svg");
           .style("left", (d3.event.pageX + 5) + "px")
           .style("top", (d3.event.pageY - 50) + "px");
       })
-      .on("mouseout", function() {
+        .on("mouseout", function() {
         var rect = d3.select(this);
         rect.attr("class", "mouseout");
         div.transition()
           .duration(100)
           .style("opacity", 0);
       });
+        
+        d3.select(".def").append("text").text(data.description);
       });
 
