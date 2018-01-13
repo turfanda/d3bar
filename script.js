@@ -39,10 +39,9 @@ var svg = d3.select("svg");
           .append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 6)
-          .attr("x", 16)
-          .attr("dy", "-5.1em")
+          .attr("dy", "1em")
           .attr("text-anchor", "end")
-          .attr("stroke", "black")
+          .attr("class","ylabel")
           .text("Gross Domestic Product, USA");
         
         

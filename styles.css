@@ -16,10 +16,15 @@ background-color:rgb(237, 239, 242);
    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
   border-radius:25px;
 }
+.ylabel{
+fill:blue;
+font-family:"Verdana";
+  font-size:15px;
+}
 .title{
 fill:blue;
   font-family:"Verdana";
-  font-size:35;
+  font-size:25px;
 }
 .infoBox{
   opacity:0;
@@ -38,10 +43,6 @@ opacity:1;
 }
 .insideInfo{
 padding:10px;
-}
-.title{
-font-size:24px;
-color:blue;
 }
 .def{
   color:blue;
