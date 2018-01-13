@@ -4,6 +4,8 @@ var svg = d3.select("svg");
       var margin = 100;
       var width = svg.attr("width") - margin;
       var height = svg.attr("height") - margin;
+      var moneyFormat = d3.format("$,.2f");
+      var yearFormat = d3.time.format("%Y-%m-%d");
     
       var xScale = d3.scaleTime().range ([0, width]);
       var yScale = d3.scaleLinear().range ([height, 0]);
@@ -53,7 +55,7 @@ var svg = d3.select("svg");
         div.transition()
           .duration(200)
           .style("opacity", 0.9);
-        div.html("<span class='amount'>" + dollars + "&nbsp;Billion </span><br><span class='year'>" + year + ' - ' + "</span>")
+        div.html("<span class='insideInfo'>" + moneyFormat(dollars) + "&nbsp;Billion </span><br><span class='insideInfo'>" + yearFormat(currentDateTime)+ "</span>")
           .style("left", (d3.event.pageX + 5) + "px")
           .style("top", (d3.event.pageY - 50) + "px");
       })
