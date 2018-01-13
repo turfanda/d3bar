@@ -32,9 +32,8 @@ var svg = d3.select("svg");
          .attr("dy", "0.71em")
          .attr("text-anchor", "end")
          .text("value");
-            var div = d3.select("body").append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0).style("position","absolute");
+      var div = d3.select("body").append("div")
+      .attr("class", "infoBox");
        
       g.selectAll(".bar")
          .data(data.data)
@@ -46,7 +45,7 @@ var svg = d3.select("svg");
          .attr("height", function(d) { return height - yScale(d[1]); })
               .on("mouseover", function(d) {
         var rect = d3.select(this);
-        rect.attr("class", "mouseover");
+        rect.attr("class", "mousein");
         var currentDateTime = new Date(d[0]);
         var year = currentDateTime.getFullYear();
         var month = currentDateTime.getMonth();
@@ -60,7 +59,7 @@ var svg = d3.select("svg");
       })
       .on("mouseout", function() {
         var rect = d3.select(this);
-        rect.attr("class", "mouseoff");
+        rect.attr("class", "mouseout");
         div.transition()
           .duration(500)
           .style("opacity", 0);
