@@ -6,10 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-        .bar {
-         stroke: black;
-         fill: red;
-        }
+
     </style>
     
     
@@ -63,7 +60,8 @@
          .attr("x", function(d) { return xScale(new Date(d[0])); })
          .attr("y", function(d) { return yScale(d[1]); })
          .attr("width", xScale.bandwidth())
-         .attr("height", function(d) { return height - yScale(d[1]); });
+         .attr("height", function(d) { return height - yScale(d[1]); })
+        .style("fill","blue");
       
       });
 
