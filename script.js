@@ -5,6 +5,8 @@ var svg = d3.select("svg");
       var width = svg.attr("width") - margin;
       var height = svg.attr("height") - margin;
       var moneyFormat = d3.format("$,.2f");
+
+
     
       var xScale = d3.scaleTime().range ([0, width]);
       var yScale = d3.scaleLinear().range ([height, 0]);
@@ -13,7 +15,6 @@ var svg = d3.select("svg");
       d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json",function(err,data){
         if(err)
           throw err;
-        
         var minDate = new Date(data.data[0][0]);
         var maxDate = new Date(data.data[data.data.length-1][0]);
 
@@ -35,11 +36,16 @@ var svg = d3.select("svg");
          .call(d3.axisLeft(yScale).tickFormat(function(d){
              return "$" + d;
          }).ticks(10))
-         .append("text")
-         .attr("y", 6)
-         .attr("dy", "0.71em")
-         .attr("text-anchor", "end")
-         .text("value");
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("x", 16)
+          .attr("dy", "-5.1em")
+          .attr("text-anchor", "end")
+          .attr("stroke", "black")
+          .text("Gross Domestic Product, USA");
+        
+        
       var div = d3.select("body").append("div")
       .attr("class", "infoBox");
        
